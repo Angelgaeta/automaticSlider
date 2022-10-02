@@ -1,0 +1,309 @@
+*{-webkit-touch-callout:none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;list-style:none;margin:0;padding:0;box-sizing:border-box}
+.imagecache{object-fit:cover;pointer-events:none;width:100vw}
+
+    
+input /* ou input{position:absolute;left:-9999px} */,.precedent,.suivant{display:none}
+
+label{cursor:pointer} /*on rend cliquable tous les labels*/  
+    
+/************************debut sildeshow****************************/ 
+.slideshow > ul,.cache{
+    width:100vw;
+height:100vh}
+
+
+.sld{
+    max-width: 100%;
+    height: auto; 
+    width: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;}
+
+
+
+
+.slideshow {
+position:relative;
+max-width: 100%;
+box-shadow:0 2px 6px hsla(0,0%,0%,.4);
+margin: 0 auto;
+size: cover;}
+      
+.slideshow > ul {
+position:relative;
+z-index:1;
+margin:auto;
+overflow:hidden}
+    
+.slideshow > ul > li{
+width:100%;
+height:100%;
+transform:translate3d(0,0);/*accelere l'animation / optionnel*/
+position:absolute;
+top:0;
+left:0;
+transition:transform 4s cubic-bezier(.4,1,.2,1)}
+
+    
+.slideshow > ul > li.img1{left:0%;}
+.slideshow > ul > li.img2{left:100%}
+.slideshow > ul > li.img3{left:200%}
+.slideshow > ul > li.img4{left:300%}
+
+
+    
+.slideshow > #slide_img1:checked ~ ul > li,
+.slideshow > #pause_img1:checked ~ ul > li{transform:translatex(0%)}
+    
+    
+.slideshow > #slide_img2:checked ~ ul > li,
+.slideshow > #pause_img2:checked ~ ul > li {transform: translatex(-100%)}
+    
+    
+.slideshow > #slide_img3:checked ~ ul > li,
+.slideshow > #pause_img3:checked ~ ul > li {transform: translatex(-200%)}
+    
+    
+.slideshow > #slide_img4:checked ~ ul > li,
+.slideshow > #pause_img4:checked ~ ul > li {transform: translatex(-300%)}
+
+/*******************animation slide********************/
+@keyframes slide {
+0%, 13%{transform:translatex(0)}
+25%, 38%{transform:translatex(-100%)}
+50%, 63%{transform:translatex(-200%)}
+75%, 88%{transform:translatex(-300%)}
+}  
+    
+/******************fleches**************************/
+    
+.slideshow > .precedent,
+.slideshow > .suivant{position:absolute;top:50%;z-index:1}
+.slideshow > .precedent{left:2rem}
+.slideshow > .suivant{right:2rem}
+
+.slideshow > .precedent > label,
+.slideshow > .suivant > label{
+position:absolute;
+opacity:0;
+z-index:-1;
+margin-top:-22px; 
+margin-left:-22px; 
+width:45px;
+height:45px;
+border-radius:50%;
+background-color:hsl(0,0%,15%);
+transition:transform .3s ease}   
+        
+.slideshow > .precedent > label:after{content:'←'}
+.slideshow > .suivant > label:after{content:'→'}
+    
+.slideshow > .precedent > label:after,
+.slideshow > .suivant > label:after {
+display:block;
+text-align:center;
+line-height:42px;
+font-size:2rem;
+color:hsl(0,0%,100%);
+transition:.3s ease}   
+    
+    
+.slideshow > .slide:checked ~ .precedent > label,
+.slideshow > .slide:checked ~ .suivant > label{opacity:0;z-index:-1}
+
+.slideshow > #slide_img1:checked ~ .precedent > label.img4,
+.slideshow > #pause_img1:checked ~ .precedent > label.img4,
+.slideshow > #slide_img1:checked ~ .suivant > label.img2,
+.slideshow > #pause_img1:checked ~ .suivant > label.img2, 
+.slideshow > #slide_img2:checked ~ .precedent > label.img1,
+.slideshow > #pause_img2:checked ~ .precedent > label.img1,
+.slideshow > #slide_img2:checked ~ .suivant > label.img3,
+.slideshow > #pause_img2:checked ~ .suivant > label.img3, 
+.slideshow > #slide_img3:checked ~ .precedent > label.img2,
+.slideshow > #pause_img3:checked ~ .precedent > label.img2,
+.slideshow > #slide_img3:checked ~ .suivant > label.img4,
+.slideshow > #pause_img3:checked ~ .suivant > label.img4, 
+.slideshow > #slide_img4:checked ~ .precedent > label.img3,
+.slideshow > #pause_img4:checked ~ .precedent > label.img3,
+.slideshow > #slide_img4:checked ~ .suivant > label.img1,
+.slideshow > #pause_img4:checked ~ .suivant > label.img1{opacity:1;z-index:1}
+
+
+
+.slideshow > #play_img1:checked ~ .precedent > label.img4,
+.slideshow > #play_img1:checked ~ .suivant > label.img2 {animation:anim_fleches 17.2s infinite -2s}
+    
+    
+.slideshow > #play_img1:checked ~ .precedent > label.img1,
+.slideshow > #play_img1:checked ~ .suivant > label.img3 {animation:anim_fleches 17.2s infinite 2.3s}
+    
+    
+.slideshow > #play_img1:checked ~ .precedent > label.img2,
+.slideshow > #play_img1:checked ~ .suivant > label.img4 {animation:anim_fleches 17.2s infinite 6.6s}
+    
+    
+.slideshow > #play_img1:checked ~ .precedent > label.img3,
+.slideshow > #play_img1:checked ~ .suivant > label.img1 {animation:anim_fleches 17.2s infinite 10.9s}
+
+
+/* stop */
+.slideshow > .slide:checked ~ .precedent > label,
+.slideshow > .slide:checked ~ .suivant > label,
+.slideshow > .pause:checked ~ .precedent > label,
+.slideshow > .pause:checked ~ .suivant > label{animation-play-state:paused}
+
+/*********************************animation fleches*************************************************/
+@keyframes anim_fleches {0%,24.99%{opacity:1;z-index:1}25%,100%{ opacity:0;z-index:-1}}
+
+    
+    .slideshow:hover{animation-play-state:paused    }
+    
+/********************bouton play/pause*************************/
+.slideshow > .play_pause,.slideshow > .play_pause > label{position:absolute}
+    
+.slideshow > .play_pause {top:50%;left:50%;z-index:1}
+    
+
+.slideshow > #play_img1:checked ~ .play_pause > .pause,
+.slideshow > .slide:checked ~ .play_pause > .play,
+.slideshow > .pause:checked ~ .play_pause > .play{display:block;
+z-index:1}
+    
+    
+.slideshow > #play_img1:checked ~ .play_pause > .play,
+.slideshow > .slide:checked ~ .play_pause > .pause,
+.slideshow > .pause:checked ~ .play_pause > .pause{display:none;
+z-index:-1}
+
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img1,
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img2,
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img3,
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img4{
+opacity:0;
+z-index:-1}
+    
+    
+    
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img1 {animation:anim_fleches 17.2s infinite -2s}
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img2{animation:anim_fleches 17.2s infinite 2.3s}
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img3{animation:anim_fleches 17.2s infinite 6.6s}
+.slideshow > #play_img1:checked ~ .play_pause > .pause.img4 {animation:anim_fleches 17.2s infinite 10.9s}
+
+    
+    
+/* stop */
+.slideshow > .slide:checked ~ .play_pause > .pause,
+.slideshow > .pause:checked ~ .play_pause > .pause{animation-play-state:paused}
+
+
+.slideshow  > #play_img1:checked ~ ul > li {animation:slide 17.2s infinite}
+
+
+.slideshow > #play_img1:checked ~ ul > li,
+.slideshow > .pause:checked ~ ul > li{transition:none}
+
+.slideshow > .play_pause {transition: .4s 0s ease}
+.slideshow > .precedent {transition: .4s .15s ease}
+.slideshow > .suivant {transition: .4s .3s ease}
+    
+  
+/*apparition/disparition des fleches + bouton play/pause*/
+.slideshow > .precedent,
+.slideshow > .suivant,
+.slideshow > .play_pause{opacity:0}
+    
+
+.slideshow:hover > .precedent,
+.slideshow:hover > .suivant,
+.slideshow:hover > .play_pause{opacity:1}
+    
+
+.slideshow > .play_pause > label {
+margin-left:50%;
+margin-top:50%; 
+width:45px;
+height:45px;
+border-radius:50%;
+background-color:hsl(0,0%,15%);
+transition:.3s ease}
+    
+    
+.slideshow > .play_pause > .play:after{content:'▶'}
+.slideshow > .play_pause > .pause:after{content:'∥'}
+    
+.slideshow > .play_pause > label:after{
+display:block;
+text-align:center;
+font-size:2rem;
+margin-top: -8px;
+color:hsl(0,0%,100%)}
+
+
+/***************************navigation puces bas********************************/
+.slideshow > .puces {
+position:absolute;
+left:0;
+width:100%;
+z-index:1;
+font-size: 0;
+text-align:center;
+bottom:.3125rem;
+margin-bottom:.3125rem}
+    
+.slideshow > .puces > label{
+position:relative;
+display:inline-flex;
+margin:0 .625rem;
+padding:.5rem;
+border-radius:50%;
+background-color:hsla(0,0%,0%,.6)}
+
+/********************simulation lien actif sur les puces******************************/
+.slideshow > .puces > label > .actif_puces {
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border-radius:50%;
+z-index:1;
+background-color:hsl(0,0%,100%);
+transition:.3s ease;
+transform:scale(0)}
+
+
+.slideshow > #slide_img1:checked ~ .puces > label.img1 > .actif_puces,
+.slideshow > #pause_img1:checked ~ .puces > label.img1 > .actif_puces,
+.slideshow > #slide_img2:checked ~ .puces > label.img2 > .actif_puces,
+.slideshow > #pause_img2:checked ~ .puces > label.img2 > .actif_puces,
+.slideshow > #slide_img3:checked ~ .puces > label.img3 > .actif_puces,
+.slideshow > #pause_img3:checked ~ .puces > label.img3 > .actif_puces,
+.slideshow > #slide_img4:checked ~ .puces > label.img4 > .actif_puces,
+.slideshow > #pause_img4:checked ~ .puces > label.img4 > .actif_puces{transform:scale(1)}
+
+
+
+/* bouton play -  puces */
+
+.slideshow > #play_img1:checked ~ .puces > label.img1 > .actif_puces{animation:anim_puces 17.2s infinite -2s}
+    
+.slideshow > #play_img1:checked ~ .puces > label.img2 > .actif_puces{animation:anim_puces 17.2s infinite 2.3s}
+    
+.slideshow > #play_img1:checked ~ .puces > label.img3 > .actif_puces{animation:anim_puces 17.2s infinite 6.6s}
+    
+.slideshow > #play_img1:checked ~ .puces > label.img4 > .actif_puces{animation:anim_puces 17.2s infinite 10.9s}
+
+
+@keyframes anim_puces{0%,24.99%{transform:scale(1);background-color:hsl(0,0%,100%)}25%,100%{transform:scale(0);background:transparent}}
+
+.slideshow > #play_img1:checked ~ .puces > label > .actif_puces,
+.slideshow > .pause:checked ~ .puces > label > .actif_puces{transition:none}
+    
+ /* stop */
+
+.slideshow > .slide:checked ~ .puces > label > .actif_puces,
+.slideshow > .pause:checked ~ .puces > label > .actif_puces{animation-play-state:paused}   
+/********************************navigation puces bas****************************/
+
+  
